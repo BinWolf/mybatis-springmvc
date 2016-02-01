@@ -1,0 +1,5 @@
+#.gitignore
+*.swp
+logs/
+target/
+*.iml
