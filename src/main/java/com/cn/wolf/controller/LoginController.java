@@ -31,7 +31,7 @@ public class LoginController {
         if (pwd.equals(passwd)) {
             System.out.println("====================");
         }
-        mv.setViewName("/index");
+        mv.setViewName("/user/saveUser");
         return mv;
     }
 }

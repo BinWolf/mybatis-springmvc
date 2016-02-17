@@ -9,11 +9,14 @@
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd
                         http://www.springframework.org/schema/mvc
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-	<!-- 注解扫描包 -->
-	<context:component-scan base-package="com.cn.wolf" />
-
 	<!-- 开启注解 -->
-	<mvc:annotation-driven />
+	<!--<mvc:annotation-driven />-->
+	<context:annotation-config />
+
+	<!-- 设置使用注解的类所在的jar包，这里必须排除扫描service层的组件 -->
+	<context:component-scan base-package="com.cn.wolf.*">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
 
 	<!-- 静态资源的访问 -->
 	<mvc:resources location="/static/" mapping="/static/**" />

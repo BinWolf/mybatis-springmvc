@@ -17,15 +17,15 @@ public class ServiceTest {
     @Autowired
     private IUserService userService;
 
-    @Before
+    /*@Before
     public void before() {
         ac = new ClassPathXmlApplicationContext("spring-mybatis.xml");
         userService = (IUserService) ac.getBean("userService");
-    }
+    }*/
 
 
     @Test
-    public void testSaveUser() {
+    public void testSaveUser() throws Exception{
         User user = new User();
         user.setId("id000000");
         user.setAge(12);

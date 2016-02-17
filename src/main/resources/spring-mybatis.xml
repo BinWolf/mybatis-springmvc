@@ -12,8 +12,11 @@
      http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
      http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
     <!-- 自动扫描 -->
-    <context:component-scan base-package="com.cn.wolf"/>
+    <context:component-scan base-package="com.cn.wolf.*">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 引入配置文件 -->
     <bean id="propertyConfigurer"
@@ -22,8 +25,7 @@
     </bean>
 
     <!--数据源配置-->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${driver}"/>
         <property name="url" value="${url}"/>
         <property name="username" value="${username}"/>
@@ -52,32 +54,41 @@
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.cn.wolf.dao"/>
+        <property name="basePackage" value="com.cn.wolf"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
     </bean>
 
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <!--<bean id="sqlSessionManager" class="org.apache.ibatis.session.SqlSessionManager">-->
         <constructor-arg index="0" ref="sqlSessionFactory"/>
         <!--以下是批处理配置,但是单个insert时返回是一个负值-2147482646-->
         <!--<constructor-arg index="1" value="BATCH"/>-->
     </bean>
 
     <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <!--使用注解事务-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
+        <!--<tx:attributes>
             <tx:method name="delete*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException"/>
             <tx:method name="insert*" propagation="REQUIRED" read-only="false"
-                       rollback-for="java.lang.RuntimeException" />
+                       rollback-for="java.lang.Exception" />
+            <tx:method name="save*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Throwable" />
             <tx:method name="update*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.Exception" />
             <tx:method name="find*" propagation="SUPPORTS"/>
             <tx:method name="get*" propagation="SUPPORTS"/>
             <tx:method name="select*" propagation="SUPPORTS"/>
+        </tx:attributes>-->
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="Throwable"/>
         </tx:attributes>
     </tx:advice>
     <aop:config>
