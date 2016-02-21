@@ -29,6 +29,15 @@
         </listener-class>
     </listener>
 
+    <filter>
+        <filter-name>SessionFilter</filter-name>
+        <filter-class>com.cn.wolf.filter.SessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!-- 添加UTF-8编码支持 -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
