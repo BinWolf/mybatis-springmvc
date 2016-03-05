@@ -1,7 +1,6 @@
-package com.cn.wolf.util;
+package com.wolf.util;
 
 import org.apache.log4j.Logger;
-import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -245,7 +244,7 @@ public class RedisUtil {
 
     public static void setObject(String key, Object value) throws IOException {
         try {
-            String e = ObjectSerializeUtil.getStrFromObj(value);
+            String e = com.wolf.util.ObjectSerializeUtil.getStrFromObj(value);
             set(key, e);
         } catch (IllegalArgumentException var3) {
             log.error("参数不合法！", var3);
@@ -257,7 +256,7 @@ public class RedisUtil {
 
     public static void setObject(String key, Object value, int timeLimit) throws IOException {
         try {
-            String e = ObjectSerializeUtil.getStrFromObj(value);
+            String e = com.wolf.util.ObjectSerializeUtil.getStrFromObj(value);
             set(key, e, timeLimit);
         } catch (IllegalArgumentException var4) {
             log.error("参数不合法！", var4);

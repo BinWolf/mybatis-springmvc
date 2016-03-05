@@ -1,4 +1,4 @@
-package com.cn.wolf.util;
+package com.wolf.util;
 
 import org.apache.commons.codec.binary.Hex;
 
