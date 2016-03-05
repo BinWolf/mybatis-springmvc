@@ -1,4 +1,4 @@
-package com.cn.wolf.common;
+package com.wolf.common;
 
 /**
  * Created by wolf on 16/2/20.
