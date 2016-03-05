@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wolf.entity.UserMenu">
+        <resultMap type="UserMenu" id="userMenuMap">
+                <id property="userId" column="user_id" />
+                <result property="menuId" column="menu_id" />
+        </resultMap>
+        <sql id="userMenuAttr">
+                #{userId},#{menuId}
+        </sql>
+        <sql id="userMenuClomn">
+                user_id,menu_id
+        </sql>
+
+</mapper>

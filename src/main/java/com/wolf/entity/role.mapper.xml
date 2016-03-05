@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wolf.entity.Role">
+        <resultMap type="Role" id="roleMap">
+                <id property="roleId" column="role_id" />
+                <result property="roleName" column="role_name" />
+                <result property="roleDesc" column="role_desc" />
+        </resultMap>
+        <sql id="roleAttr">
+                #{roleId},#{roleName},#{roleDesc}
+        </sql>
+        <sql id="roleClomn">
+                role_id,role_name,role_desc
+        </sql>
+
+        <insert id="saveRole" parameterType="Role">
+                insert into t_e_role (<include refid="roleClomn"></include>)
+                values (<include refid="roleAttr"></include>)
+        </insert>
+
+        <select id="getRoleById" parameterType="String" resultMap="roleMap">
+                select * from t_e_role where id = #{id}
+        </select>
+</mapper>

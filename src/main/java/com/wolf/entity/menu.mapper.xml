@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wolf.entity.Menu">
+        <resultMap type="Menu" id="menuMap">
+                <id property="menuId" column="menu_id" />
+                <result property="menuName" column="menu_name" />
+                <result property="parentMenuId" column="parent_menu_id" />
+                <result property="menuUrl" column="menu_url" />
+                <result property="orderId" column="order_id" />
+                <result property="level" column="level" />
+                <result property="last" column="last" />
+        </resultMap>
+        <sql id="menuAttr">
+                #{menuId},#{menuName},#{parentMenuId},#{menuUrl},#{orderId},#{level},#{last}
+        </sql>
+        <sql id="menuClomn">
+                menu_id,menu_name,parent_menu_id,menu_url,order_id,level,last
+        </sql>
+
+        <insert id="saveMenu" parameterType="Menu">
+                insert into t_e_menu (<include refid="menuClomn"></include>)
+                values (<include refid="menuAttr"></include>)
+        </insert>
+
+        <select id="getMenuById" parameterType="String" resultMap="menuMap">
+                select * from t_e_menu where menu_id = #{menuId}
+        </select>
+</mapper>

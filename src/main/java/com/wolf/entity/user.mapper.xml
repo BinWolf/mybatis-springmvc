@@ -2,27 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
+<mapper namespace="com.wolf.entity.User">
         <resultMap type="User" id="userMap">
-                <id property="id" column="id" />
+                <id property="userId" column="user_id" />
                 <result property="userName" column="user_name" />
-                <result property="age" column="age" />
-                <result property="note" column="usernote" />
-                <result property="userId" column="user_id" />
+                <result property="passWord" column="password" />
+                <result property="loginName" column="login_name" />
+                <result property="idCardNo" column="idcard_no" />
+                <result property="mobileNo" column="mobile_no" />
         </resultMap>
         <sql id="userAttr">
-                #{id},#{userId},#{userName},#{age},#{note}
+                #{userId},#{userName},#{passWord},#{loginName},#{idCardNo},#{mobileNo}
         </sql>
-        <sql id="dbAttr">
-                id,user_id,user_name,age,usernote
+        <sql id="userClomn">
+                user_id,user_name,password,login_name,idcard_no,mobile_no
         </sql>
 
         <insert id="saveUser" parameterType="User">
-                insert into t_test_user (<include refid="dbAttr"></include>)
+                insert into t_e_user (<include refid="userClomn"></include>)
                 values (<include refid="userAttr"></include>)
         </insert>
 
         <select id="getUserById" parameterType="String" resultMap="userMap">
-                select * from t_test_user where id = #{id}
+                select * from t_e_user where user_id = #{userId}
         </select>
 </mapper>
