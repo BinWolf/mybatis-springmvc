@@ -14,7 +14,7 @@
 	<context:annotation-config />
 
 	<!-- 设置使用注解的类所在的jar包，这里必须排除扫描service层的组件 -->
-	<context:component-scan base-package="com.cn.wolf.*">
+	<context:component-scan base-package="com.wolf.*">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 	</context:component-scan>
 

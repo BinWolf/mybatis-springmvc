@@ -45,7 +45,7 @@
 	</plugins>
 	<!-- 指定映射文件或者映射类 -->
 	<mappers>
-		<mapper resource="com/cn/wolf/mapping/user.mapper.xml"/>
+		<mapper resource="com/wolf/entity/user.mapper.xml"/>
 	</mappers>
 
 </configuration>

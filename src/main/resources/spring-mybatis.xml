@@ -14,7 +14,7 @@
      http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
     <!-- 自动扫描 -->
-    <context:component-scan base-package="com.cn.wolf.*">
+    <context:component-scan base-package="com.wolf.*">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -49,7 +49,7 @@
         <!-- 自动扫描mapping.xml文件 -->
         <!--<property name="mapperLocations" value="classpath:com/cn/wolf/mapping/*.mapper.xml"></property>-->
         <!--类的别名-->
-        <property name="typeAliasesPackage" value="com.cn.wolf.mapping"/>
+        <property name="typeAliasesPackage" value="com.wolf.mapping"/>
     </bean>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
@@ -92,7 +92,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <aop:pointcut id="pc" expression="execution(* com.cn.wolf.service.*.*(..))" /> <!--把事务控制在Service层-->
+        <aop:pointcut id="pc" expression="execution(* com.wolf.service.*.*(..))" /> <!--把事务控制在Service层-->
         <aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
     </aop:config>
 
