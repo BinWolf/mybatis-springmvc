@@ -21,6 +21,6 @@
         </insert>
 
         <select id="getRoleById" parameterType="String" resultMap="roleMap">
-                select * from t_e_role where id = #{id}
+                select * from t_e_role where role_id = #{roleId}
         </select>
 </mapper>
