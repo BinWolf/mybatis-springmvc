@@ -1,11 +1,12 @@
-package com.cn.wolf.dao;
+package com.wolf.service;
 
-import com.cn.wolf.mapping.User;
+import com.wolf.entity.User;
 
 /**
  * Created by wolf on 15/11/18.
  */
-public interface IUserDao {
+public interface IUserService {
+
     int saveUser(User user);
 
     User getUserById(String id);

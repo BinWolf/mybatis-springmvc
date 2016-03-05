@@ -1,12 +1,11 @@
-package com.cn.wolf.controller;
+package com.wolf.controller;
 
-import com.cn.wolf.mapping.User;
-import com.cn.wolf.service.IUserService;
+import com.wolf.entity.User;
+import com.wolf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -26,12 +25,6 @@ public class UserController {
     public ModelAndView saveUser(@RequestParam HashMap params){
         ModelAndView mv = new ModelAndView();
         User user = new User();
-        user.setId((String) params.get("id"));
-        int age = Integer.valueOf((String)params.get("age"));
-        user.setAge(age);
-        user.setNote((String)params.get("note"));
-        user.setUserName((String) params.get(("userName")));
-        user.setUserId((String) params.get("userId"));
         int res = userService.saveUser(user);
         System.out.println(res);
         mv.setViewName("/user/succee");

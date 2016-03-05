@@ -1,11 +1,8 @@
-package com.cn.wolf.dao.daoimpl;
+package com.wolf.dao.daoimpl;
 
-import com.cn.wolf.dao.IUserDao;
-import com.cn.wolf.dao.base.MybatisSupportBaseDao;
-import com.cn.wolf.mapping.User;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wolf.dao.IUserDao;
+import com.wolf.dao.base.MybatisSupportBaseDao;
+import com.wolf.entity.User;
 import org.springframework.stereotype.Repository;
 
 /**

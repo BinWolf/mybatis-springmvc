@@ -1,4 +1,4 @@
-package com.cn.wolf.dao.base;
+package com.wolf.dao.base;
 
 import java.util.List;
 

@@ -1,7 +1,4 @@
-package com.cn.wolf.filter;
-
-import com.cn.wolf.common.ConstValue;
-import com.cn.wolf.util.RedisUtil;
+package com.wolf.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -25,14 +22,14 @@ public class SessionFilter implements Filter {
         System.out.println("8080=   "+jSessionId);
         String user_id = null;
         if (null != jSessionId && !jSessionId.equals("")) {
-            user_id = RedisUtil.hget(jSessionId, "user_id");
+            user_id = com.wolf.util.RedisUtil.hget(jSessionId, "user_id");
         }
         if(request.getRequestURI().contains("logout")){
             if(jSessionId!=null){
                 clearCookie(request, response, "/",jSessionId);
-                RedisUtil.del(jSessionId);
+                com.wolf.util.RedisUtil.del(jSessionId);
             }
-            response.sendRedirect(ConstValue.home+loginPageUrl);
+            response.sendRedirect(com.wolf.common.ConstValue.home+loginPageUrl);
             return;
         }
 
@@ -60,14 +57,14 @@ public class SessionFilter implements Filter {
             }else if(uri.endsWith(".xml") || uri.endsWith(".jsp") || uri.endsWith("login") || uri.endsWith("doLogin")){
             }else{
                 //跳到登陆页
-                response.sendRedirect(ConstValue.home+loginPageUrl);
+                response.sendRedirect(com.wolf.common.ConstValue.home+loginPageUrl);
 //                request.getRequestDispatcher(loginPageUrl).forward(request,response);
                 return;
             }
         }else{
             request.setAttribute("jSessionId", jSessionId);
-            saveCookie(response,"JSESSIONID",jSessionId,ConstValue.sessionTimeLong);
-            RedisUtil.setExpireTime(jSessionId, ConstValue.sessionTimeLong);//会话时长延续ConstValue.sessionTimeLong秒
+            saveCookie(response,"JSESSIONID",jSessionId, com.wolf.common.ConstValue.sessionTimeLong);
+            com.wolf.util.RedisUtil.setExpireTime(jSessionId, com.wolf.common.ConstValue.sessionTimeLong);//会话时长延续ConstValue.sessionTimeLong秒
 
         }
         chain.doFilter(req, resp);
@@ -82,7 +79,7 @@ public class SessionFilter implements Filter {
     {
         //判断是否其它系统跳转过来的
         String jSessionId = request.getParameter("jSessionId");
-        javax.servlet.http.Cookie cookies[] = request.getCookies();
+        Cookie cookies[] = request.getCookies();
         if(jSessionId!=null) {
             //重写request的cookie中的JSESSIONID
             if (cookies != null) {
@@ -92,7 +89,7 @@ public class SessionFilter implements Filter {
                 }
 
             }
-            saveCookie(response,name,jSessionId,ConstValue.sessionTimeLong);
+            saveCookie(response,name,jSessionId, com.wolf.common.ConstValue.sessionTimeLong);
             return jSessionId;
         }
         //如果是本系统请求就在cookie中获取jSessionId
@@ -110,7 +107,7 @@ public class SessionFilter implements Filter {
     }
     protected void saveCookie(HttpServletResponse response,String name, String value, int maxAge)
     {	//maxAge单位秒
-        javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(name,value);
+        Cookie cookie = new Cookie(name,value);
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");
         response.addCookie(cookie);

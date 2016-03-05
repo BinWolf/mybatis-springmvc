@@ -1,11 +1,9 @@
-package com.cn.wolf.service.serviceimpl;
+package com.wolf.service.serviceimpl;
 
-import com.cn.wolf.dao.IUserDao;
-import com.cn.wolf.mapping.User;
-import com.cn.wolf.service.IUserService;
+import com.wolf.entity.User;
+import com.wolf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by wolf on 15/11/18.
@@ -14,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private IUserDao userDao;
+    private com.wolf.dao.IUserDao userDao;
 
-//    @Transactional
     public int saveUser(User user){
             userDao.saveUser(user);
             userDao.saveUser(user);

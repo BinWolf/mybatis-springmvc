@@ -1,8 +1,7 @@
-package com.cn.wolf.dao.base;
+package com.wolf.dao.base;
 
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionManager;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
