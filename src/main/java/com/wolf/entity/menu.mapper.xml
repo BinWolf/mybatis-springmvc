@@ -16,7 +16,7 @@
                 #{menuId},#{menuName},#{parentMenuId},#{menuUrl},#{orderId},#{level},#{last}
         </sql>
         <sql id="menuClomn">
-                menu_id,menu_name,parent_menu_id,menu_url,order_id,level,last
+              menu_id,menu_name,parent_menu_id,menu_url,order_id,level,last
         </sql>
 
         <insert id="saveMenu" parameterType="Menu">
