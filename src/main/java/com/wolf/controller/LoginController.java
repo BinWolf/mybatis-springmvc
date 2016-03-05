@@ -1,8 +1,8 @@
-package com.cn.wolf.controller;
+package com.wolf.controller;
 
-import com.cn.wolf.common.ConstValue;
-import com.cn.wolf.util.HmacSha256;
-import com.cn.wolf.util.RedisUtil;
+import com.wolf.common.ConstValue;
+import com.wolf.util.HmacSha256;
+import com.wolf.util.RedisUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Context;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -50,7 +49,7 @@ public class LoginController {
     }
     protected void saveCookie(HttpServletResponse response,String name, String value, int maxAge)
     {	//maxAge单位秒
-        javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(name, value);
+        Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(maxAge);
         cookie.setPath("/");
         response.addCookie(cookie);
