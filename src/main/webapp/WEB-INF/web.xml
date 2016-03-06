@@ -76,8 +76,14 @@
     <display-name>webapp</display-name>
 
     <welcome-file-list>
-        <!--<welcome-file>index.html</welcome-file>
-        <welcome-file>index.jsp</welcome-file>-->
         <welcome-file>/login</welcome-file>
     </welcome-file-list>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>platformTag</taglib-uri>
+            <taglib-location>/WEB-INF/tlds/platform.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
 </web-app>

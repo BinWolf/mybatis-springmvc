@@ -1,5 +1,6 @@
 package com.wolf.service.serviceimpl;
 
+import com.wolf.dao.IUserDao;
 import com.wolf.entity.User;
 import com.wolf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private com.wolf.dao.IUserDao userDao;
+    private IUserDao userDao;
 
     public int saveUser(User user){
             userDao.saveUser(user);
@@ -22,5 +23,9 @@ public class UserServiceImpl implements IUserService {
 
     public User getUserById(String user) {
         return userDao.getUserById(user);
+    }
+
+    public User getUserByLoginName(String loginName) {
+        return userDao.getUserByLoginName(loginName);
     }
 }

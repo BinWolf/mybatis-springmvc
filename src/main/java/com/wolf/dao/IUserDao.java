@@ -9,4 +9,6 @@ public interface IUserDao {
     int saveUser(User user);
 
     User getUserById(String id);
+
+    User getUserByLoginName(String loginName);
 }

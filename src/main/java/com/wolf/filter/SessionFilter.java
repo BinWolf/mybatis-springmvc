@@ -19,7 +19,6 @@ public class SessionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         String jSessionId = getCookieValue(request,response,"JSESSIONID")	;
-        System.out.println("8080=   "+jSessionId);
         String user_id = null;
         if (null != jSessionId && !jSessionId.equals("")) {
             user_id = com.wolf.util.RedisUtil.hget(jSessionId, "user_id");

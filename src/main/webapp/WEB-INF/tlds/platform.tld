@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+ version="2.0">
+  <!-- 标签库的版本号 --> 
+  <tlib-version>1.0</tlib-version>
+  <!-- 标签库的默认前缀 -->
+  <short-name>p</short-name>
+  <!-- 标签库的默认URI -->
+  <uri>/localTag</uri>
+  
+ <!-- 商品类别列表标签 -->
+ <tag>
+    <description>复选框：input标签的value为提交后后台得到的实际复选框的值，复选框是否选中前台判断的标准是外层div的aria-checked属性，是bool类型，是否选中的外观变化为外层div上是否添加叠加class为checked</description>
+    <name>checkbox</name>
+    <tag-class>com.wolf.tags.CheckBoxTag</tag-class>
+    <body-content>tagdependent</body-content>
+    <attribute>
+        <description>name</description>
+        <name>name</name>
+        <required>true</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>value</description>
+        <name>value</name>
+        <required>true</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute> 
+    <attribute>
+        <description>checked</description>
+        <name>checked</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>disable</description>
+        <name>disable</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>      
+    <attribute>
+        <description>labelClassName</description>
+        <name>labelClassName</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>  
+    <attribute>
+        <description>labelHtmlContent</description>
+        <name>labelHtmlContent</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>     
+ </tag>
+
+ <tag>
+    <description>单选框：同name的为一组，input标签的value为提交后后台得到的实际复选框的值，复选框是否选中前台判断的标准是外层div的aria-checked属性，是bool类型，是否选中的外观变化为外层div上是否添加叠加class为checked</description>
+    <name>radio</name>
+    <tag-class>com.wolf.tags.RadioTag</tag-class>
+    <body-content>tagdependent</body-content>
+    <attribute>
+        <description>name</description>
+        <name>name</name>
+        <required>true</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>value</description>
+        <name>value</name>
+        <required>true</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute> 
+    <attribute>
+        <description>checked</description>
+        <name>checked</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute> 
+    <attribute>
+        <description>disable</description>
+        <name>disable</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+        <description>labelClassName</description>
+        <name>labelClassName</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>false</rtexprvalue>
+    </attribute>  
+    <attribute>
+        <description>labelHtmlContent</description>
+        <name>labelHtmlContent</name>
+        <required>false</required>
+        <!-- 可以使用JSP表达式 -->
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>             
+ </tag>
+
+    <tag>
+        <description>静态资源访问标签，当静态资源更改路径或者存放在文件服务器时，只需修改标签逻辑</description>
+        <name>resources</name>
+        <tag-class>com.wolf.tags.Resources</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>url</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>下拉框标签 从字典表取数据</description>
+        <name>select</name>
+        <tag-class>com.wolf.tags.SelectTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>groupId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>dictId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>business</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>根据权限展示右侧菜单树列表</description>
+        <name>menuTree</name>
+        <tag-class>com.wolf.tags.MenuTreeTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>parentId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>配置角色菜单树列表</description>
+        <name>roleSetTree</name>
+        <tag-class>com.wolf.tags.RoleSettingTreeTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>roleId</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description>日期格式化</description>
+        <name>formatDate</name>
+        <tag-class>com.wolf.tags.FormatDateTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pattern</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>
