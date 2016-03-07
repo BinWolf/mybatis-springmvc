@@ -37,3 +37,16 @@ CREATE TABLE t_e_user_role(
   user_id VARCHAR(10) NOT NULL ,
   role_id VARCHAR(10) NOT NULL
 );
+
+INSERT INTO t_e_role(role_id, role_name, role_desc) VALUES ('r00000','开发','开发者');
+
+INSERT INTO t_e_user_role(user_id, role_id) VALUES ('u00000','r00000');
+
+INSERT INTO t_e_menu(menu_id, menu_name, parent_menu_id, menu_url, order_id, level, last)
+VALUES ('m00000','后台管理','','',1,1,FALSE );
+
+INSERT INTO t_e_menu(menu_id, menu_name, parent_menu_id, menu_url, order_id, level, last)
+VALUES ('m00001','客服中心','','',2,1,FALSE );
+
+INSERT INTO t_e_user_menu (user_id, menu_id) VALUES ('u00000', 'm00000');
+INSERT INTO t_e_user_menu (user_id, menu_id) VALUES ('u00000', 'm00001');
