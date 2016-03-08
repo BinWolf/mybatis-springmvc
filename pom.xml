@@ -15,6 +15,7 @@
         <!-- log4j日志文件管理包版本 -->
         <slf4j.version>1.7.7</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
+        <mapper.version>3.3.6</mapper.version>
     </properties>
     <dependencies>
         <dependency>
@@ -81,7 +82,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -199,11 +204,19 @@
             <version>1.9</version>
         </dependency>
 
+        <!--分页-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>4.1.0</version>
         </dependency>
+
+        <!--公用mapper-->
+        <!--<dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>${mapper.version}</version>
+        </dependency>-->
 
         <dependency>
             <groupId>redis.clients</groupId>
