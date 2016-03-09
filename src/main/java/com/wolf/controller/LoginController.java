@@ -56,7 +56,7 @@ public class LoginController {
                 //会话时长延续ConstValue.sessionTimeLong秒
                 RedisUtil.setExpireTime(sUUID, ConstValue.sessionTimeLong);
                 RedisUtil.hset(sUUID, "jSessionId", sUUID);
-                RedisUtil.hset(sUUID, "user_id", user.getUserId()); //user_id  先设死了
+                RedisUtil.hset(sUUID, "userId", user.getUserId());
                 saveCookie(response, "JSESSIONID", sUUID, ConstValue.sessionTimeLong);
                 request.setAttribute("jSessionId", sUUID);
                 response.getWriter().write("0");

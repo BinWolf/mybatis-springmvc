@@ -43,7 +43,7 @@
 
 <script src="<pf:resources url="/static/js/common.js"/>" type="text/javascript"></script>
 
-<script src="/static/clipboard/clipboard.min.js"></script>
+<script src="/static/js/clipboard.min.js"></script>
 
 <link type="text/css" href="/static/css/jquery.toastmessage.css" rel="stylesheet"/>
 
@@ -75,9 +75,11 @@ function loadurlBycall(t){
 function ajax_frash_close(json) {
 	if (json.statusCode == DWZ.statusCode.ok) {
 		DWZ.ajaxDone(json);
-		if (json.navTabId) { //把指定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的
+		if (json.navTabId) {
+			//把指定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的
 			navTab.reloadFlag(json.navTabId);
-		} else { //重新载入当前navTab页面
+		} else {
+			//重新载入当前navTab页面
 			navTabPageBreak();
 		}
 		if ("closeCurrent" == json.callbackType) {
@@ -103,16 +105,11 @@ function ajax_frash_close(json) {
 			<td>&nbsp;&nbsp;&nbsp;当前身份</td>
 			</tr>
 			</table>
-				<%--<!-- <a class="logo_ysh" href="javascript:loadurlBycall(1);">来电</a> -->--%>
 				<ul class="nav">
-					<%--<!-- <li id="switchEnvBox"><a href="javascript:">（<span><%=XRUtil.getObjectFromSession("strAgentAreaList")%></span>）</a>--%>
-					<%--</li>--%>
-					<%----%>
 					<%--<li><a href="https://me.alipay.com/dwzteam" target="_blank">捐赠</a></li>--%>
 					<%--<li><a href="changepwd.html" target="dialog" width="600">设置</a></li>--%>
 					<%--<li><a href="http://www.cnblogs.com/dwzjs" target="_blank">博客</a></li>--%>
 					<%--<li><a href="http://weibo.com/dwzui" target=-0="_blank">微博</a></li>--%>
-					 <%---->--%>
 					<li><span><a href="/forlogin"><img src="/static/images/tuichu.gif" /></a></span></li>
 				</ul>
 				<%--<!-- <ul class="themeList" id="themeList">--%>
@@ -124,9 +121,6 @@ function ajax_frash_close(json) {
 					<%--<li theme="azure"><div>天蓝</div></li>--%>
 				<%--</ul> -->--%>
 			</div>
-
-			<!-- navMenu -->
-			
 		</div>
 
 		<div id="leftside">
@@ -143,13 +137,13 @@ function ajax_frash_close(json) {
 		<div id="container">
 			<div id="navTab" class="tabsPage">
 				<div class="tabsPageHeader">
-					<div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+					<div class="tabsPageHeaderContent"> <!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
 						<ul class="navTab-tab">
 							<li tabid="main" class="main"><a href="javascript:;"><span><span class="home_icon">我的主页</span></span></a></li>
 						</ul>
 					</div>
-					<div class="tabsLeft">left</div><!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
-					<div class="tabsRight">right</div><!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+					<div class="tabsLeft">left</div> <!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+					<div class="tabsRight">right</div> <!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
 					<div class="tabsMore">more</div>
 				</div>
 				<ul class="tabsMoreList">
@@ -172,7 +166,6 @@ function ajax_frash_close(json) {
 		</div>
 
 	</div>
-
 	<div id="footer">Copyright &copy; 2014 <a href="www.565656.cn" target="dialog">后台管理系统</a></div>
 </body>
 </html>

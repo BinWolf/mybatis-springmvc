@@ -4,10 +4,7 @@ package com.wolf.util;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
 
@@ -887,5 +884,100 @@ public final class LocalStringUtils {
 		}
 		return sb.toString();
 	}
+
+    /**
+     * 金额格式化
+     *
+     * @param s
+     *            金额
+     *            小数位数
+     * @return 格式后的金额
+     */
+    public static String formartPriceByInsertComma(String s) {
+        int len = 2;
+        if (s == null || s.length() < 1) {
+            return "";
+        }
+        NumberFormat formater = null;
+        double num = Double.parseDouble(s);
+        if (len == 0) {
+            formater = new DecimalFormat("###,###");
+
+        } else {
+            StringBuffer buff = new StringBuffer();
+            buff.append("###,###.");
+            for (int i = 0; i < len; i++) {
+                buff.append("#");
+            }
+            formater = new DecimalFormat(buff.toString());
+        }
+        return formater.format(num);
+    }
+
+    /**
+     * 金额去掉“,”
+     *
+     * @param s
+     *            金额
+     * @return 去掉“,”后的金额
+     */
+    public static String formartPriceByDelComma(String s) {
+        String formatString = "";
+        if (s != null && s.length() >= 1) {
+            formatString = s.replaceAll(",", "");
+        }
+
+        return formatString;
+    }
+
+    /**
+     * 自动生成###.##格式的金额
+     * 240
+     * 240.01
+     */
+    public static String formartPrice(String s) {
+        if (s.contains(".")) {
+            if (s.indexOf(".") + 2 + 1 < s.length()) {
+                s = s.substring(0, s.indexOf(".") + 3);
+            } else if (s.indexOf(".") + 2 == s.length()) {
+                s = s + "0";
+            }
+        } else {
+            return s + ".00";
+        }
+        return s;
+    }
+
+    // 长度6位
+    public static String getRandomNum6() {
+        String[] beforeShuffle = new String[] { "0","1","2", "3", "4", "5", "6", "7",
+                "8", "9"};
+        List list = Arrays.asList(beforeShuffle);
+        Collections.shuffle(list);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i));
+        }
+        String afterShuffle = sb.toString();
+        String result = afterShuffle.substring(3, 9);
+        return result;
+    }
+
+    // 长度4位
+    public static String getRandomNum4() {
+        String[] beforeShuffle = new String[] { "2", "3", "4", "5", "6", "7",
+                "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+                "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W",
+                "X", "Y", "Z" };
+        List list = Arrays.asList(beforeShuffle);
+        Collections.shuffle(list);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i));
+        }
+        String afterShuffle = sb.toString();
+        String result = afterShuffle.substring(5, 9);
+        return result;
+    }
 
 }

@@ -1,6 +1,8 @@
 package com.wolf.util;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -41,7 +43,6 @@ public class RedisUtil {
     private static void returnResource(JedisPool pool, Jedis redis) {
         if(redis != null) {
             pool.returnResource(redis);
-//            pool.close();
         }
 
     }
@@ -359,4 +360,38 @@ public class RedisUtil {
 
         return temp;
     }
+
+    public static String getObjectFromSession(String key) {
+        RequestAttributes attrs = RequestContextHolder.getRequestAttributes();
+        if(attrs==null){
+            return null;
+        }
+        String jSessionId = (String) attrs.getAttribute("jSessionId",RequestAttributes.SCOPE_REQUEST);
+        if(LocalStringUtils.isEmpty(jSessionId)){
+            return null;
+        }
+        return hget(jSessionId, key);
+    }
+
+    // 以object形式存入 list map等集合类型 只支持这两种 不支持自定义对象
+    public static void setObjectFromSession(String key, Object object) {
+        String jSessionId = (String) RequestContextHolder
+                .getRequestAttributes()
+                .getAttribute("jSessionId",RequestAttributes.SCOPE_REQUEST);
+        String value = JsonUtil.toJSONString(object);
+
+        hset(jSessionId, key, value);// map操作
+    }
+
+    /**
+     * 随机数存入redis
+     *
+     * @param tel
+     * @param code
+     * @return
+     */
+    public static boolean keyInJedis(String tel, String code) {
+        return setValidKey(tel, Integer.valueOf(PropertiesUtil.getValue( "resetLimit")), code);
+    }
+
 }

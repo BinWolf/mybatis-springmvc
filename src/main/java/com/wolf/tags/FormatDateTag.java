@@ -1,7 +1,8 @@
 package com.wolf.tags;
 
-import org.apache.commons.lang.StringUtils;
-import platform.utils.IDateUtils;
+
+import com.wolf.util.IDateUtils;
+import com.wolf.util.LocalStringUtils;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -22,18 +23,18 @@ public class FormatDateTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
 
-        if(StringUtils.isEmpty(value)){
+        if(LocalStringUtils.isEmpty(value)){
             return super.doStartTag();
         }
-        if(StringUtils.isEmpty(pattern)){
+        if(LocalStringUtils.isEmpty(pattern)){
             pattern = "yyyyMMddHHmmss";
         }
-        if(StringUtils.isEmpty(target)){
+        if(LocalStringUtils.isEmpty(target)){
             target = "yyyy-MM-dd HH:mm:ss";
         }
         try {
             Date date = IDateUtils.parse(value, pattern);
-            String str = IDateUtils.format(date,target);
+            String str = IDateUtils.format(date, target);
             pageContext.getOut().print(str);
         } catch (ParseException e) {
             e.printStackTrace();

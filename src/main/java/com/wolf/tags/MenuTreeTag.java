@@ -1,7 +1,14 @@
 package com.wolf.tags;
 
+import com.wolf.service.IMenuService;
+import com.wolf.service.serviceimpl.MenuServiceImpl;
 import com.wolf.util.LocalStringUtils;
+import com.wolf.util.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -13,8 +20,10 @@ import java.util.Map;
 /**
  * Created by wolf
  */
+
 public class MenuTreeTag extends TagSupport {
 
+    private IMenuService menuService;
 
     private String serverURL;
 
@@ -22,17 +31,18 @@ public class MenuTreeTag extends TagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-//        String userId = XRUtil.getObjectFromSession("user_id");
-//        String orgType = XRUtil.getObjectFromSession("org_type");
+        String userId = RedisUtil.getObjectFromSession("userId");
         Map param = new HashMap();
-//        param.put("user_id",userId);
-//        param.put("org_type",orgType);
+        param.put("userId",userId);
         if(parentId == null){
             parentId = "root";
         }
-        param.put("parent_menu_id",parentId);
-//        List res = MenuService.qryMenusByUserId(param);
-        List res = null;
+        param.put("parentMenuId",parentId);
+
+        //由于是tag调用会用new实例化本类,所以用spring ioc无法自动注入,因此用该方式获取spring上下文
+        menuService = (IMenuService) WebApplicationContextUtils.getWebApplicationContext(pageContext.getServletContext()).getBean("menuService");
+        List res = menuService.qryMenusByUserId(param);
+
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
         serverURL = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() +  request.getContextPath() ;
         StringBuffer sb = new StringBuffer();
@@ -59,7 +69,7 @@ public class MenuTreeTag extends TagSupport {
         }
         String href = "";
         for(Map<String,Object> map : res){
-            if(LocalStringUtils.isEquals("1", map.get("menu_level"))){
+            if(LocalStringUtils.isEquals("1", map.get("level"))){
                 sb.append("<div class=\"accordionHeader\">\n" +
                         "\t\t\t\t\t\t\t<h2><span>Folder</span>").append(map.get("menu_name")).append("</h2>\n" +
                         "\t\t\t\t\t\t</div>");

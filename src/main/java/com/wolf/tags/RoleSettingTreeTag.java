@@ -1,6 +1,7 @@
 package com.wolf.tags;
 
 import com.wolf.util.LocalStringUtils;
+import com.wolf.util.RedisUtil;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -19,7 +20,7 @@ public class RoleSettingTreeTag extends TagSupport {
         Map map = new HashMap();
         map.put("config_RoleId",roleId);
 //        map.put("org_type", RedisUtil.getObjectFromSession("org_type"));
-//        map.put("user_id",XRUtil.getObjectFromSession("user_id"));
+        map.put("user_id", RedisUtil.getObjectFromSession("user_id"));
 //        List<Map<String,Object>> res =  MenuService.qryAllMenusByUserId(map);
         List<Map<String,Object>> res = null;
         StringBuffer sb = new StringBuffer();

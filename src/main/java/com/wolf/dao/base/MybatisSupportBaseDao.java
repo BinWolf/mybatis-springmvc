@@ -12,6 +12,7 @@ import java.util.List;
  * Created by wolf on 16/2/16.
  */
 public class MybatisSupportBaseDao extends SqlSessionDaoSupport {
+
     @Autowired
     protected SqlSessionTemplate sqlSessionTemplate;
 

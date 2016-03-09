@@ -80,27 +80,27 @@ $(function(){
     });
 	choose_bg();
 	if ($.cookie(COOKIE_NAME)){
-	    $("#j_username").val($.cookie(COOKIE_NAME));
-	    $("#j_password").focus();
+	    $("#loginName").val($.cookie(COOKIE_NAME));
+	    $("#passWord").focus();
 	    $("#j_remember").attr('checked', true);
 	} else {
-		$("#j_username").focus();
+		$("#loginName").focus();
 	}
 	/*$("#captcha_img").click(function(){
 		changeCode();
 	});*/
-	$("#j_password").bind('keyup',function(event){ 
+	$("#passWord").bind('keyup',function(event){
         if(event.keyCode==13){ 
         	$("#login_ok").trigger("click");
         } 
     });
 	$("#login_ok").click(function(){
 
-		if($("#j_username").val()==""){
+		if($("#loginName").val()==""){
 			alertMsg.error('用户名不能为空!'); 
 			return;
 		}
-		if($("#j_password").val()==""){
+		if($("#passWord").val()==""){
 			alertMsg.error('密码不能为空!'); 
 			return;
 		}
@@ -120,23 +120,23 @@ $(function(){
 		}
 		var $remember = $("#j_remember");
 		if ($remember.attr('checked')) {
-			$.cookie(COOKIE_NAME, $("#j_username").val(), { path: '/', expires: 15 });
+			$.cookie(COOKIE_NAME, $("#loginName").val(), { path: '/', expires: 15 });
 		} else {
 			$.cookie(COOKIE_NAME, null, { path: '/' });  //删除cookie
 		}
 		$("#login_ok").attr("disabled", true).val('登陆中..');
-		$("#j_password").val($("#j_username").val(), $("#j_password").val());
-		$.ajax({ url: "/doLogin",contentType:"application/x-www-form-urlencoded",type:"post",data: "j_username="+$("#j_username").val()+"&j_password="+$("#j_password").val(), success: function(data){
+		$("#passWord").val(HMAC_SHA256_MAC( $("#loginName").val(), $("#passWord").val()));
+		$.ajax({ url: "/doLogin",contentType:"application/x-www-form-urlencoded",type:"post",data: "loginName="+$("#loginName").val()+"&passWord="+$("#passWord").val(), success: function(data){
 			   if(data){
 				   if(data=="0") {
-					   window.location.href = '/manager/index';
+					   window.location.href = '/page/manager/index';
 					   return;
 				   }
 				   else if(data=="1")  alertMsg.error('密码错误!');
 				   else if(data=="2")  alertMsg.error('该用户不存在!');
 				   else if(data=="3")  alertMsg.error('用户名、密码填写不完整!');
 				   $("#login_ok").attr("disabled", false).val('登陆');
-				   $("#j_password").val("");
+				   $("#passWord").val("");
 			   }
 	      }}); 
 		
@@ -185,10 +185,10 @@ function choose_bg() {
     		<form action="index.html" id="login_form" method="post">
                 <input type="hidden" name="jfinal_token" value="${jfinal_token }" />
     			<div class="form-group">
-    				<label for="j_username" class="t">用户名：</label> <input id="j_username" value="" name="loginName" type="text" class="form-control x319 in" style="height:40px;" autocomplete="off">
+    				<label for="loginName" class="t">用户名：</label> <input id="loginName" value="" name="loginName" type="text" class="form-control x319 in" style="height:40px;" autocomplete="off">
     			</div>
     			<div class="form-group">
-    				<label for="j_password" class="t">密　码：</label> <input id="j_password" value="" name="passWord" type="password" class="form-control x319 in">
+    				<label for="passWord" class="t">密　码：</label> <input id="passWord" value="" name="passWord" type="password" class="form-control x319 in">
     			</div>
     			<div class="form-group">
                     <label class="t"></label>

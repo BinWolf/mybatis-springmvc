@@ -1,6 +1,7 @@
 package com.wolf.controller;
 
 import com.wolf.entity.User;
+import com.wolf.service.IMenuService;
 import com.wolf.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,15 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IMenuService menuService;
+
     @RequestMapping(value = "/saveUser")
     public ModelAndView saveUser(@RequestParam HashMap params){
         ModelAndView mv = new ModelAndView();
         User user = new User();
         int res = userService.saveUser(user);
-        System.out.println(res);
+//        System.out.println(res);
         mv.setViewName("/user/succee");
         return mv;
     }

@@ -3,15 +3,18 @@ package com.wolf.util;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * Created by wolf on 16/3/6.
  */
 public class IDateUtils {
+
     public static String pattern = "yyyy-MM-dd";
 
     public static String NOW = "yyyy-MM-dd HH:mm:ss";
@@ -72,6 +75,7 @@ public class IDateUtils {
         }
         return sdf;
     }
+
     /**
      *  格式化输出
      * @param date
@@ -82,6 +86,7 @@ public class IDateUtils {
         SimpleDateFormat sdf = getDateFormat(pattern);
         return  sdf.format(date);
     }
+
     /**
      * 获取今天的日期
      * @param pattern
@@ -120,6 +125,7 @@ public class IDateUtils {
     public static String getSysDate(){
         return getToday(IDateUtils.NOW);
     }
+
     /**
      * 将yyyy-MM-dd HH:mm:ss.S、
      * yyyy-MM-dd HH:mm:ss.SS、
@@ -202,6 +208,167 @@ public class IDateUtils {
     		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(new Date());
     	}
     	return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS").format(date);
+    }
+
+    private static final SimpleDateFormat _8BitsDate = new SimpleDateFormat("yyyyMMdd");
+    private static final SimpleDateFormat _14BitsTime = new SimpleDateFormat("yyyyMMddHHmmss");
+    private static final SimpleDateFormat _19BitsTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat _22BitsTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SS");
+
+    /**
+     * 字符串转日期，由 yyyy-MM-dd HH:mm:ss 转为 Date
+     *
+     * @param date
+     * @return
+     */
+    public static Date parse19BitsStringToDate(String date) {
+        if (date != null && !date.equals("")) {
+            try {
+                return _19BitsTime.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return new Date();
+    }
+
+    /**
+     * 日期转字符串，转为 yyyy-MM-dd HH:mm:ss
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDateTo19BitsString(Date date) {
+        if (date != null && !date.equals("")) {
+            return _19BitsTime.format(date);
+        }
+        return _19BitsTime.format(new Date());
+    }
+
+    /**
+     * 字符串转日期，由 yyyy-MM-dd HH:mm:ss.SS 转为 Date
+     *
+     * @param date
+     * @return
+     */
+    public static Date parse22BitsStringToDate(String date) {
+        if (date != null && !date.equals("")) {
+            try {
+                return _22BitsTime.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return new Date();
+    }
+
+    /**
+     * 日期转字符串，转为 yyyyMMdd
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDateTo22BitsString(Date date) {
+        if (date != null && !date.equals("")) {
+            return _22BitsTime.format(date);
+        }
+        return _22BitsTime.format(new Date());
+    }
+
+    /**
+     * 字符串转日期，由 yyyyMMdd 转为 Date
+     *
+     * @param date
+     * @return
+     */
+    public static Date parse8BitsStringToDate(String date) {
+        if (date != null && !date.equals("")) {
+            try {
+                return _8BitsDate.parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return new Date();
+    }
+
+    /**
+     * 日期转字符串，转为 yyyyMMdd
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDateTo8BitsString(Date date) {
+        if (date != null && !date.equals("")) {
+            return _8BitsDate.format(date);
+        }
+        return _8BitsDate.format(new Date());
+    }
+
+    /**
+     * 日期格式转换，由 yyyy-MM-dd HH:mm:ss 转为 yyyyMMddHHmmss
+     *
+     * @param time
+     * @return
+     */
+    public static String formatTimeTo14BitsTime(String time) {
+        if (time != null && !time.equals("")) {
+            try {
+                return _14BitsTime.format(_19BitsTime.parse(time));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return _14BitsTime.format(new Date());
+    }
+
+    /**
+     * 日期格式转换，由 yyMMddHHmmss 转为 yyyy-MM-dd HH:mm:ss
+     *
+     * @param time
+     * @return
+     */
+    public static String formatTimeTo19BitsTime(String time) {
+        if (time != null && !time.equals("")) {
+            try {
+                return _19BitsTime.format(_14BitsTime.parse(time));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return _19BitsTime.format(new Date());
+    }
+
+    public static Properties loadPropertyFile(String filePath) {
+        String webRootPath = null;
+        if (null == filePath || filePath.equals(""))
+            throw new IllegalArgumentException(
+                    "Properties file path can not be null : " + filePath);
+
+        webRootPath = PropertiesUtil.class.getResource("/").getPath();
+        webRootPath = new File(webRootPath).getParent();
+        InputStream inputStream = null;
+        Properties p = null;
+        try {
+            inputStream = new FileInputStream(new File(webRootPath
+                    + File.separator + filePath));
+            p = new Properties();
+            p.load(inputStream);
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException("Properties file not found: "
+                    + filePath);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(
+                    "Properties file can not be loading: " + filePath);
+        } finally {
+            try {
+                if (inputStream != null)
+                    inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return p;
     }
 
 }
