@@ -18,6 +18,10 @@
         <sql id="menuClomn">
               m.menu_id,m.menu_name,m.parent_menu_id,m.menu_url,m.order_id,m.level,m.last
         </sql>
+        <sql id="menuClomnAs">
+              m.menu_id menuId,m.menu_name menuName,m.parent_menu_id parentMenuId,
+              m.menu_url menuUrl,m.order_id orderId,m.level level,m.last last
+        </sql>
 
         <insert id="saveMenu" parameterType="Menu">
                 insert into t_e_menu m(<include refid="menuClomn"></include>)
@@ -30,7 +34,7 @@
 
         <!--根据用户找菜单 -->
         <select id="queryChildMenus" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-                SELECT DISTINCT <include refid="menuClomn"/> FROM t_e_menu m, t_e_user_menu um
+                SELECT DISTINCT <include refid="menuClomnAs"/> FROM t_e_menu m, t_e_user_menu um
                 WHERE m.menu_id = um.menu_id
                 <if test="level != null">
                         AND m.level = #{level}

@@ -14,13 +14,36 @@
         <sql id="roleClomn">
                 role_id,role_name,role_desc
         </sql>
+        <sql id="roleClomnAs">
+                role_id roleId,role_name roleName,role_desc roleDesc
+        </sql>
 
         <insert id="saveRole" parameterType="Role">
-                insert into t_e_role (<include refid="roleClomn"></include>)
-                values (<include refid="roleAttr"></include>)
+                insert into t_e_role (<include refid="roleClomn"/>)
+                values (<include refid="roleAttr"/>)
         </insert>
 
-        <select id="getRoleById" parameterType="String" resultMap="roleMap">
-                select * from t_e_role where role_id = #{roleId}
+        <delete id="deleteRole" parameterType="String">
+                DELETE FROM t_e_role WHERE role_id = #{roleId}
+        </delete>
+
+        <select id="getRoleByRoleId" parameterType="String" resultMap="roleMap">
+                select <include refid="roleClomnAs"/> from t_e_role where role_id = #{roleId}
         </select>
+
+        <select id="qryRoles" resultType="Hash" parameterType="Hash">
+                select <include refid="roleClomnAs"/> from t_e_role
+                <where>
+                        <if test="roleName != null and roleName !=''"> role_name = #{roleName}</if>
+                </where>
+        </select>
+
+        <update id="updateRole" parameterType="Role" >
+                UPDATE t_e_role
+                <trim prefix="set" suffixOverrides=",">
+                        <if test="roleName != null">role_name=#{roleName},</if>
+                        <if test="roleDesc != null">role_desc=#{roleDesc},</if>
+                </trim>
+                WHERE role_id = #{roleId}
+        </update>
 </mapper>
