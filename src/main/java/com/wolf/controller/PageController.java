@@ -14,9 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
 
+    /**
+     * jsp在二级目录下
+     * @param operateName
+     * @param pageName
+     * @return
+     */
     @RequestMapping("{operateName}/{pageName}")
-    public String toManagerPage(@PathVariable("operateName") String operateName ,@PathVariable("pageName") String pageName){
+    public String toManagerPage(@PathVariable("operateName") String operateName,
+                                @PathVariable("pageName") String pageName){
         return operateName+"/"+pageName;
+    }
+
+    /**
+     * jsp在3级目录下
+     * @param dirName
+     * @param operateName
+     * @param pageName
+     * @return
+     */
+    @RequestMapping("{dirName}/{operateName}/{pageName}")
+    public String toPage(@PathVariable("dirName") String dirName,
+                         @PathVariable("operateName") String operateName,
+                         @PathVariable("pageName") String pageName) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(dirName).append("/").append(operateName).append("/").append(pageName);
+        return sb.toString();
     }
     
 }

@@ -71,7 +71,7 @@ public class MenuTreeTag extends TagSupport {
         for(Map<String,Object> map : res){
             if(LocalStringUtils.isEquals("1", map.get("level"))){
                 sb.append("<div class=\"accordionHeader\">\n" +
-                        "\t\t\t\t\t\t\t<h2><span>Folder</span>").append(map.get("menu_name")).append("</h2>\n" +
+                        "\t\t\t\t\t\t\t<h2><span>Folder</span>").append(map.get("menuName")).append("</h2>\n" +
                         "\t\t\t\t\t\t</div>");
                 sb.append("<div class=\"accordionContent\">\n" +
                         "\t\t\t\t\t\t\t<ul class=\"tree treeFolder expand\">\n");
@@ -81,12 +81,12 @@ public class MenuTreeTag extends TagSupport {
                 sb.append("\t</ul>\n" +
                         "\t\t\t\t\t</div>");
             } else {
-                if(LocalStringUtils.isNotEmptyOfObject(map.get("menu_url"))){
-                    href = "href=\""+serverURL +  map.get("menu_url").toString() +"\" ";
-                    sb.append("<li><a ").append(href).append("target=\"navTab\"").append("rel=\"").append(map.get("menu_id")).append("\"").append(">")
-                            .append(map.get("menu_name")).append("</a>");
+                if(LocalStringUtils.isNotEmptyOfObject(map.get("menuUrl"))){
+                    href = "href=\""+serverURL +  map.get("menuUrl").toString() +"\" ";
+                    sb.append("<li><a ").append(href).append("target=\"navTab\"").append("rel=\"").append(map.get("menuId")).append("\"").append(">")
+                            .append(map.get("menuName")).append("</a>");
                 }else{
-                    sb.append("<li><a>").append(map.get("menu_name")).append("</a>");
+                    sb.append("<li><a>").append(map.get("menuName")).append("</a>");
                 }
 
                 if(map.get("child")!=null){
