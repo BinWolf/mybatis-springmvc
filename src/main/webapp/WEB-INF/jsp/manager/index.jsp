@@ -166,6 +166,6 @@ function ajax_frash_close(json) {
 		</div>
 
 	</div>
-	<div id="footer">Copyright &copy; 2014 <a href="www.565656.cn" target="dialog">后台管理系统</a></div>
+	<div id="footer">Copyright &copy; 2014 <a href="#" target="dialog">后台管理系统</a></div>
 </body>
 </html>
